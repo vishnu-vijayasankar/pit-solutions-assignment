@@ -45,3 +45,37 @@
     height: 48px;
     line-height: 38px;
 }
+
+.textBlue {
+    color: blue;
+}
+
+.mainContainer {
+    display: flex;
+    padding: 50px;
+}
+
+.imgContainer {
+    text-align: center;
+}
+
+.imgContainer button, .registerButton {
+    margin-top: 20px;
+    cursor: pointer;
+    border: 1px solid #dc3545;
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 10px;
+}
+
+.registerButton a {
+    color: white;
+}
+
+.registerContainer {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+}

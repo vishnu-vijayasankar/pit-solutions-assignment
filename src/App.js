@@ -7,46 +7,44 @@ import React, { Component } from 'react';
 
 // import router & history
 import { Router, Route, Switch } from 'react-router-dom';
-import { history} from './helpers';
+import { history } from './helpers';
 import PublicRoutes from './publicRoutes';
 import { connect } from 'react-redux';
-import ImageUpload from './containers/DefaultLayout/ImageUpload'; 
 import { alertActions } from './actions';
 
 class App extends Component {
-  
+
   constructor(props) {
     super(props);
 
     const { dispatch } = this.props;
     history.listen((location, action) => {
-        // clear alert on location change
-        dispatch(alertActions.clear());
+      // clear alert on location change
+      dispatch(alertActions.clear());
     });
   }
 
 
   render() {
-    const routePublicComponents = PublicRoutes.map(({path, component}, key) => <Route exact path={path} component={component} key={key} />);
+    const routePublicComponents = PublicRoutes.map(({ path, component }, key) => <Route exact path={path} component={component} key={key} />);
     const { loader } = this.props;
     return (
       <Router history={history}>
         {/* <ScrollToTop> */}
         <div className="App">
           {loader}
-          <ImageUpload { ...this.props } />
-            <Switch>
-              {routePublicComponents}
-            </Switch>
+          <Switch>
+            {routePublicComponents}
+          </Switch>
         </div>
       </Router>
     );
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
-    store:""
+    store: ""
     // loader: state.loader.loading
   }
 }

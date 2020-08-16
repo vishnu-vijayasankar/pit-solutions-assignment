@@ -45,4 +45,11 @@ h3 {
     text-align: center;
     width: 500px;
   }
-  
+  .selectImageBtn {
+    cursor: pointer;
+    border: 1px solid #dc3545;
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 10px;
+  }

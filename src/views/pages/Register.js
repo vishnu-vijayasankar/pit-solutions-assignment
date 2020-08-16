@@ -6,6 +6,8 @@ import Alert from '../Common/Alert';
 import Swal from 'sweetalert2';
 import ReactSlider from 'react-slider';
 import Select from 'react-select';
+import ImageUpload from '../../containers/DefaultLayout/ImageUpload';
+import { Link } from "react-router-dom";
 import './page.css';
 
 const hobbies = [
@@ -37,10 +39,14 @@ class Register extends Component {
             lastName: '',
             phone: '',
             state: '',
+            email: '',
             message: '',
+            age: 0,
+            imgURL: '',
             selectedHobby: null,
             selectedCountry: null,
             selectedAddress: null,
+            newsLetter: "don't send"
         }
     }
 
@@ -57,14 +63,21 @@ class Register extends Component {
         })
     }
 
-
+    componentWillMount() {
+        if(this.props.location.state && (Object.keys(this.props.location.state).length != 0)) {
+            this.state = {...this.props.location.state};
+            this.setState({
+                ...this.state
+            })
+        }
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
 
-        const { phone, state, firstName, lastName } = this.state;
+        const { phone, state, firstName, lastName, email, age } = this.state;
 
-        if (!phone || !state || !firstName || !lastName) {
+        if (!phone || !state || !firstName || !lastName || !email || age == 0) {
             Swal.fire({
                 position: 'center',
                 type: 'warning',
@@ -84,14 +97,27 @@ class Register extends Component {
             phone: '',
             state: '',
         })
+        this.props.history.push({
+            pathname: '/summary',
+            state: this.state
+        })
     }
 
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
-      };
+    };
+
+    slideEvent = (val) => {
+        this.setState({ age: val })
+    }
+
+    handleInputChange = (event) => {
+        let newsLetter = event.target.checked ? "send" : "don't send";
+        this.setState({ newsLetter: newsLetter });
+    };
 
     render() {
-        const { selectedHobby,selectedCountry,selectedAddress } = this.state;
+        const { selectedHobby, selectedCountry, selectedAddress, age } = this.state;
 
         return (
             <div className="main">
@@ -99,6 +125,11 @@ class Register extends Component {
                     {
                         !isObjEmpty(this.props.alert) && <Alert alert={this.props.alert} />
                     }
+
+                    <ImageUpload
+                        imageChange={(url) => {console.log('imgURL => ',url);this.setState({imgURL:url})}}
+                        imgURL = {this.state.imgURL}
+                    />
                     <div>
                         <form onSubmit={this.handleSubmit}>
                             <h3 className='text-center' style={{ color: '#252a33' }}><span>Register</span></h3>
@@ -113,15 +144,21 @@ class Register extends Component {
                                 </div>
                             </div>
                             <div className="form-group">
+                                <div className="input_icon"> <i className="fa fa-envelope"></i>
+                                    <input type="text" name="email" value={this.state.email} onChange={this.changeHandler} className="form-control" placeholder="Email" />
+                                </div>
+                            </div>
+                            <div className="form-group">
                                 <label>Age:</label>
                                 <ReactSlider
                                     className="horizontal-slider"
                                     thumbClassName="example-thumb"
                                     trackClassName="example-track"
                                     onBeforeChange={val => console.log('onBeforeChange value:', val)}
-                                    onChange={val => console.log('onChange value:', val)}
+                                    onChange={this.slideEvent}
                                     onAfterChange={val => console.log('onAfterChange value:', val)}
                                     renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+                                    defaultValue={age}
                                 />
                             </div>
                             <div className="form-group">
@@ -139,7 +176,7 @@ class Register extends Component {
                                     name="selectedCountry"
                                     value={selectedCountry}
                                     options={countries}
-                                    onChange={(val)=> {this.handleChange({target: { name:'selectedCountry', value: val }})}}
+                                    onChange={(val) => { this.handleChange({ target: { name: 'selectedCountry', value: val } }) }}
                                     placeholder="Country"
                                 />
                             </div>
@@ -148,7 +185,7 @@ class Register extends Component {
                                     name="selectedAddress"
                                     value={selectedAddress}
                                     options={address}
-                                    onChange={(val)=> {this.handleChange({target: { name:'selectedAddress', value: val }})}}
+                                    onChange={(val) => { this.handleChange({ target: { name: 'selectedAddress', value: val } }) }}
                                     placeholder="Address"
                                 />
                             </div>
@@ -158,12 +195,25 @@ class Register extends Component {
                                     value={selectedHobby}
                                     options={hobbies}
                                     isMulti
-                                    onChange={(val)=> {this.handleChange({target: { name:'selectedHobby', value: val }})}}
+                                    onChange={(val) => { this.handleChange({ target: { name: 'selectedHobby', value: val } }) }}
                                     placeholder="Hobbies"
                                 />
                             </div>
+                            <div className="form-group">
+                                <input
+                                    type="checkbox"
+                                    onChange={(e) => this.handleInputChange(e)}
+                                    checked={this.state.newsLetter == 'send' ? true : false}
+                                    style={{marginRight:'5px'}}
+                                />
+                                <label>Subscribe to the news letter</label>
+                            </div>
                             <div className="form-group text-center">
-                                <button type="submit" className="btn btn-danger">Register</button>
+                                <button
+                                    type="submit"
+                                    className="btn btn-danger"
+                                >SUBMIT
+                                </button>
                             </div>
                         </form>
                     </div>

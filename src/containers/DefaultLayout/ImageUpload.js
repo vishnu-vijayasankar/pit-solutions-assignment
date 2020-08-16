@@ -30,6 +30,8 @@ class ImageUpload extends Component {
         file: file,
         imagePreviewUrl: reader.result
       });
+
+      this.props.imageChange(reader.result);
     }
 
     reader.readAsDataURL(file)
@@ -38,17 +40,18 @@ class ImageUpload extends Component {
   render() {
     let {imagePreviewUrl} = this.state;
     let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = (<img src={imagePreviewUrl} />);
+    if (imagePreviewUrl || this.props.imgURL) {
+      $imagePreview = (<img style={{'padding': '10px'}} src={this.props.imgURL} />);
     }
 
     return (
       <div>
         <form onSubmit={this._handleSubmit}>
-          <input type="file" onChange={this._handleImageChange} />
+          {$imagePreview}
+          <input type="file" id="files" onChange={this._handleImageChange} style={{display:'none'}} />
+          <label class="selectImageBtn" for="files">Select Image</label>
           {/* <button type="submit" onClick={this._handleSubmit}>Upload Image</button> */}
         </form>
-        {$imagePreview}
       </div>
     )
   }
