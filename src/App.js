@@ -1,5 +1,5 @@
 /**
-* @Developed by @ArihantBhugari
+* @Developed by @VishnuVijayasankar
 */
 
 
@@ -10,7 +10,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { history} from './helpers';
 import PublicRoutes from './publicRoutes';
 import { connect } from 'react-redux';
-import DefaultHeader from './containers/DefaultLayout/DefaultHeader'; 
+import ImageUpload from './containers/DefaultLayout/ImageUpload'; 
 import { alertActions } from './actions';
 
 class App extends Component {
@@ -34,7 +34,7 @@ class App extends Component {
         {/* <ScrollToTop> */}
         <div className="App">
           {loader}
-          <DefaultHeader { ...this.props } />
+          <ImageUpload { ...this.props } />
             <Switch>
               {routePublicComponents}
             </Switch>

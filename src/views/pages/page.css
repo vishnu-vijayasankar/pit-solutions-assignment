@@ -1,0 +1,47 @@
+.example-track.example-track-1 {
+    background: rgb(255, 0, 0);
+  }
+  
+  .horizontal-slider {
+    width: 100%;
+    max-width: 500px;
+    height: 50px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: grey;
+    border-image: initial;
+  }
+
+  .example-track {
+    position: relative;
+    background: rgb(221, 221, 221);
+}
+
+.horizontal-slider .example-track {
+    top: 20px;
+    height: 10px;
+}
+
+.example-track.example-track-1 {
+    background: rgb(255, 0, 0);
+}
+
+.example-thumb {
+    font-size: 0.9em;
+    text-align: center;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    box-sizing: border-box;
+    border-width: 5px;
+    border-style: solid;
+    border-color: grey;
+    border-image: initial;
+}
+
+.horizontal-slider .example-thumb {
+    top: 1px;
+    width: 50px;
+    height: 48px;
+    line-height: 38px;
+}

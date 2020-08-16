@@ -1,14 +1,31 @@
-/**
-* @Developed by @ArihantBhugari
-*/
-
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { userActions } from '../../actions';
-import {isObjEmpty} from '../../helpers/utilities';
+import { isObjEmpty } from '../../helpers/utilities';
 import Alert from '../Common/Alert';
 import Swal from 'sweetalert2';
+import ReactSlider from 'react-slider';
+import Select from 'react-select';
+import './page.css';
+
+const hobbies = [
+    { value: 'hockey', label: 'Hockey' },
+    { value: 'football', label: 'Football' },
+    { value: 'reading', label: 'Reading' },
+    { value: 'cricket', label: 'Cricket' },
+];
+
+const countries = [
+    { value: 'india', label: 'India' },
+    { value: 'us', label: 'US' },
+    { value: 'switzerland', label: 'Switzerland' },
+    { value: 'china', label: 'China' },
+];
+
+const address = [
+    { value: 'office', label: 'Office' },
+    { value: 'residence', label: 'Residence' }
+];
 
 
 class Register extends Component {
@@ -18,9 +35,12 @@ class Register extends Component {
         this.state = {
             firstName: '',
             lastName: '',
-            email: '',
-            password: '',
+            phone: '',
+            state: '',
             message: '',
+            selectedHobby: null,
+            selectedCountry: null,
+            selectedAddress: null,
         }
     }
 
@@ -42,9 +62,9 @@ class Register extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        const { email, password, firstName, lastName } = this.state;
+        const { phone, state, firstName, lastName } = this.state;
 
-        if (!email || !password || !firstName || !lastName) {
+        if (!phone || !state || !firstName || !lastName) {
             Swal.fire({
                 position: 'center',
                 type: 'warning',
@@ -53,55 +73,101 @@ class Register extends Component {
                 timer: 3000,
                 width: '29rem',
                 allowOutsideClick: false
-              })
+            })
             // window.alert("Fields can not be left blank.");
             return false;
         }
-        this.props.dispatch && this.props.dispatch(userActions.registerUser(email, password, firstName, lastName));
+        this.props.dispatch && this.props.dispatch(userActions.registerUser(phone, state, firstName, lastName));
         this.setState({
             firstName: '',
             lastName: '',
-            email: '',
-            password: '',
+            phone: '',
+            state: '',
         })
     }
 
+    handleChange = (event) => {
+        this.setState({ [event.target.name]: event.target.value });
+      };
+
     render() {
+        const { selectedHobby,selectedCountry,selectedAddress } = this.state;
+
         return (
             <div className="main">
-            <div className="container">
-             {
-            !isObjEmpty(this.props.alert) && <Alert alert={this.props.alert} />
-          }
-                <div className="shadow_box">
-                    <form onSubmit={this.handleSubmit}>
-                        <h3 className='text-center' style={{color:'#252a33'}}><span>Register</span></h3>
-                        <div className="form-group">
-                            <div className="input_icon"> <i className="fa fa-user"></i>
-                                <input type="text" name="firstName" value={this.state.firstName} onChange={this.changeHandler} className="form-control" placeholder="Firstname" />
+                <div className="container">
+                    {
+                        !isObjEmpty(this.props.alert) && <Alert alert={this.props.alert} />
+                    }
+                    <div>
+                        <form onSubmit={this.handleSubmit}>
+                            <h3 className='text-center' style={{ color: '#252a33' }}><span>Register</span></h3>
+                            <div className="form-group">
+                                <div className="input_icon"> <i className="fa fa-user"></i>
+                                    <input type="text" name="firstName" value={this.state.firstName} onChange={this.changeHandler} className="form-control" placeholder="Firstname" />
+                                </div>
                             </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="input_icon"> <i className="fa fa-user"></i>
-                                <input type="text" name="lastName" value={this.state.lastName} onChange={this.changeHandler} className="form-control" placeholder="Lastname" />
+                            <div className="form-group">
+                                <div className="input_icon"> <i className="fa fa-user"></i>
+                                    <input type="text" name="lastName" value={this.state.lastName} onChange={this.changeHandler} className="form-control" placeholder="Lastname" />
+                                </div>
                             </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="input_icon"> <i className="fa fa-envelope"></i>
-                                <input type="email" name="email" value={this.state.email} onChange={this.changeHandler} className="form-control" placeholder="Email" />
+                            <div className="form-group">
+                                <label>Age:</label>
+                                <ReactSlider
+                                    className="horizontal-slider"
+                                    thumbClassName="example-thumb"
+                                    trackClassName="example-track"
+                                    onBeforeChange={val => console.log('onBeforeChange value:', val)}
+                                    onChange={val => console.log('onChange value:', val)}
+                                    onAfterChange={val => console.log('onAfterChange value:', val)}
+                                    renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+                                />
                             </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="input_icon"> <i className="fa fa-lock"></i>
-                                <input type="password" name="password" value={this.state.password} onChange={this.changeHandler} className="form-control" placeholder="Password" />
+                            <div className="form-group">
+                                <div className="input_icon"> <i className="fa fa-phone-square"></i>
+                                    <input type="phone" name="phone" value={this.state.phone} onChange={this.changeHandler} className="form-control" placeholder="Contact Number" />
+                                </div>
                             </div>
-                        </div>
-                        <div className="form-group text-center">
-                            <button type="submit" className="btn btn-danger">Register</button>
-                        </div>
-                    </form>
+                            <div className="form-group">
+                                <div className="input_icon"> <i className="fa fa-address-card"></i>
+                                    <input type="state" name="state" value={this.state.state} onChange={this.changeHandler} className="form-control" placeholder="State" />
+                                </div>
+                            </div>
+                            <div className="form-group">
+                                <Select
+                                    name="selectedCountry"
+                                    value={selectedCountry}
+                                    options={countries}
+                                    onChange={(val)=> {this.handleChange({target: { name:'selectedCountry', value: val }})}}
+                                    placeholder="Country"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <Select
+                                    name="selectedAddress"
+                                    value={selectedAddress}
+                                    options={address}
+                                    onChange={(val)=> {this.handleChange({target: { name:'selectedAddress', value: val }})}}
+                                    placeholder="Address"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <Select
+                                    name="selectedHobby"
+                                    value={selectedHobby}
+                                    options={hobbies}
+                                    isMulti
+                                    onChange={(val)=> {this.handleChange({target: { name:'selectedHobby', value: val }})}}
+                                    placeholder="Hobbies"
+                                />
+                            </div>
+                            <div className="form-group text-center">
+                                <button type="submit" className="btn btn-danger">Register</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
             </div>
         );
     }
