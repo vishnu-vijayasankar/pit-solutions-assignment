@@ -25,8 +25,8 @@ const countries = [
 ];
 
 const address = [
-    { value: 'office', label: 'Office' },
-    { value: 'residence', label: 'Residence' }
+    { value: 'Office', label: 'Office' },
+    { value: 'Residence', label: 'Residence' }
 ];
 
 
@@ -46,7 +46,9 @@ class Register extends Component {
             selectedHobby: null,
             selectedCountry: null,
             selectedAddress: null,
-            newsLetter: "don't send"
+            newsLetter: "don't send",
+            address1: '',
+            address2: ''
         }
     }
 
@@ -146,6 +148,7 @@ class Register extends Component {
 
     render() {
         const { selectedHobby, selectedCountry, selectedAddress, age } = this.state;
+        console.log("Selected Address => ",selectedAddress);
 
         return (
             <div className="main">
@@ -217,6 +220,21 @@ class Register extends Component {
                                     placeholder="Address"
                                 />
                             </div>
+                            {
+                                this.state.selectedAddress ?
+                                    <div style={{padding:"0 30px"}}>
+                                        <div className="form-group">
+                                            <input type="phone" name="address1" value={this.state.address1} onChange={this.changeHandler} className="form-control"
+                                            placeholder={this.state.selectedAddress.label + " Address 1"} />
+                                        </div>
+                                        <div className="form-group">
+                                            <input type="phone" name="address2" value={this.state.address2} onChange={this.changeHandler} className="form-control"
+                                            placeholder={this.state.selectedAddress.label + " Address 2"} />
+                                        </div>
+                                    </div>
+                                : null
+                                
+                            }
                             <div className="form-group">
                                 <Select
                                     name="selectedHobby"
