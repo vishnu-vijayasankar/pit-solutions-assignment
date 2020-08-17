@@ -24,8 +24,6 @@ class Users extends Component {
     }
 
     render() {
-        // let location = useLocation();
-        // console.log('useLocation => ', location);
         let state = this.props.location.state;
 
         return (
@@ -36,13 +34,13 @@ class Users extends Component {
                 <div className="mainContainer">
                     
                     <div className="imgContainer">
-                        <img src={state.imgURL} />
+                        <img src={state.imgURL} style={{width: '130px'}}/>
                         <button onClick={this.editProfile}>
                             EDIT PROFILE
                     </button>
                     </div>
 
-                    <div>
+                    <div style={{textAlign: 'left'}}>
                         I am <span className="textBlue">{state.firstName + ' ' + state.lastName}</span> and I am
                         <span className="textBlue"> {state.age}</span> years old and you can send your emails to
                         <span className="textBlue"> {state.email}</span>. I live in the state of

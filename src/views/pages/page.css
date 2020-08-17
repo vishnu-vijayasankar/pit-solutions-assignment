@@ -62,11 +62,15 @@
 .imgContainer button, .registerButton {
     margin-top: 20px;
     cursor: pointer;
-    border: 1px solid #dc3545;
+    outline: none;
     padding: 5px 10px;
     background-color: #dc3545;
     color: white;
     border-radius: 10px;
+}
+
+.imgContainer button:focus, .registerButton:focus {
+    outline: none;
 }
 
 .registerButton a {
@@ -78,4 +82,8 @@
     align-items: center;
     height: 100vh;
     justify-content: center;
+}
+
+.registerButton:focus {
+    outline: none;
 }

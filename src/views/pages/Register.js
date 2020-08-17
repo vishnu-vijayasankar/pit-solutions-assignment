@@ -120,7 +120,7 @@ class Register extends Component {
             return false;
         }
 
-        this.props.dispatch && this.props.dispatch(userActions.registerUser(phone, state, firstName, lastName));
+        // this.props.dispatch && this.props.dispatch(userActions.registerUser(phone, state, firstName, lastName));
         this.setState({
             firstName: '',
             lastName: '',

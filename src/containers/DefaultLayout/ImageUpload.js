@@ -41,7 +41,7 @@ class ImageUpload extends Component {
     let {imagePreviewUrl} = this.state;
     let $imagePreview = null;
     if (imagePreviewUrl || this.props.imgURL) {
-      $imagePreview = (<img style={{'padding': '10px'}} src={this.props.imgURL} />);
+      $imagePreview = (<img style={{'padding': '10px', 'width': '130px'}} src={this.props.imgURL} />);
     }
 
     return (

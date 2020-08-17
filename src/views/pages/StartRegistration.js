@@ -4,15 +4,20 @@
 
 
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 
 class StartRegistration extends Component {
+
+  registerBtn = () => {
+    this.props.history.push({
+      pathname: '/register'
+    })
+  }
 
   render() {
     return (
         <div class="registerContainer">
-            <button className="registerButton ">
-              <Link to="/register">REGISTER</Link>
+            <button className="registerButton" onClick={this.registerBtn}>
+              REGISTER
             </button>
         </div>
       );
