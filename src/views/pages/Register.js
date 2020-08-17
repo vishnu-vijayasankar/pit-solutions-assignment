@@ -166,12 +166,12 @@ class Register extends Component {
                             <h3 className='text-center' style={{ color: '#252a33' }}><span>Register</span></h3>
                             <div className="form-group">
                                 <div className="input_icon"> <i className="fa fa-user"></i>
-                                    <input type="text" name="firstName" value={this.state.firstName} onChange={this.changeHandler} className="form-control" placeholder="Firstname" />
+                                    <input type="text" name="firstName" value={this.state.firstName} onChange={this.changeHandler} className="form-control" placeholder="First name" />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <div className="input_icon"> <i className="fa fa-user"></i>
-                                    <input type="text" name="lastName" value={this.state.lastName} onChange={this.changeHandler} className="form-control" placeholder="Lastname" />
+                                    <input type="text" name="lastName" value={this.state.lastName} onChange={this.changeHandler} className="form-control" placeholder="Last name" />
                                 </div>
                             </div>
                             <div className="form-group">
@@ -252,7 +252,7 @@ class Register extends Component {
                                     checked={this.state.newsLetter == 'send' ? true : false}
                                     style={{marginRight:'5px'}}
                                 />
-                                <label>Subscribe to the news letter</label>
+                                <label>Subscribe to the newsletter</label>
                             </div>
                             <div className="form-group text-center">
                                 <button
