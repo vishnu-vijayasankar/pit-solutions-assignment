@@ -87,9 +87,37 @@ class Register extends Component {
                 width: '29rem',
                 allowOutsideClick: false
             })
+
             // window.alert("Fields can not be left blank.");
             return false;
         }
+
+        if(!(/^[a-zA-Z]*$/.test(firstName))) {
+            Swal.fire({
+                position: 'center',
+                type: 'warning',
+                title: 'Only alphabets are allowed inside the name field.',
+                showConfirmButton: false,
+                timer: 3000,
+                width: '29rem',
+                allowOutsideClick: false
+            })
+            return false;
+        }
+
+        if(this.state.imgURL == '') {
+            Swal.fire({
+                position: 'center',
+                type: 'warning',
+                title: 'Please upload an image !',
+                showConfirmButton: false,
+                timer: 3000,
+                width: '29rem',
+                allowOutsideClick: false
+            })
+            return false;
+        }
+
         this.props.dispatch && this.props.dispatch(userActions.registerUser(phone, state, firstName, lastName));
         this.setState({
             firstName: '',

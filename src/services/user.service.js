@@ -9,17 +9,17 @@ export const userService = {
 function registerUser(email, password, firstName, lastName) {
 
     const requestOptions = {
-        method: 'post',
-        url: `${apiUrl}/api/register`,
+        method: 'get',
+        url: `${apiUrl}`,
         headers:{
             "Content-Type": "application/json"
         },
-        data: {
-            email : email,
-            password : password,
-            firstName: firstName,
-            lastName: lastName
-        }
+        // data: {
+        //     email : email,
+        //     password : password,
+        //     firstName: firstName,
+        //     lastName: lastName
+        // }
     };
 
     return axios(requestOptions)

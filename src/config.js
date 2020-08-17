@@ -5,7 +5,7 @@ const AppTitle = " ";
 const AppMode = ["development"];
 
 /* -- set API URLs --*/
-const development = "http://localhost:4000";
+const development = "https://raw.githubusercontent.com/vishnu-vijayasankar/pit-solutions-assignment/master/dummyResponse.json";
 
 
 /* -- API URL Configuration --*/
@@ -15,7 +15,7 @@ switch(AppMode[0]){
         ApiUrl = development;
         break;
     default:
-        ApiUrl = "http://localhost:4000"
+        ApiUrl = "https://raw.githubusercontent.com/vishnu-vijayasankar/pit-solutions-assignment/master/dummyResponse.json"
 }
 
 export {
